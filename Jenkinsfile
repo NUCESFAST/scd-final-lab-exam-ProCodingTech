@@ -7,35 +7,35 @@ pipeline {
     }
 
     stages {
-        stage('Build Auth Image') {
+        stage('i211133 Build Auth Image') {
             steps {
                 script {
                     docker.build("${DOCKERHUB_NAMESPACE}/authbackend", './Auth')
                 }
             }
         }
-        stage('Build Classrooms Image') {
+        stage('i211133 Build Classrooms Image') {
             steps {
                 script {
                     docker.build("${DOCKERHUB_NAMESPACE}/classroomsbackend", './Classrooms')
                 }
             }
         }
-        stage('Build Client Image') {
+        stage('i211133 Build Client Image') {
             steps {
                 script {
                     docker.build("${DOCKERHUB_NAMESPACE}/client", './client')
                 }
             }
         }
-        stage('Build Event Bus Image') {
+        stage('i211133 Build Event Bus Image') {
             steps {
                 script {
                     docker.build("${DOCKERHUB_NAMESPACE}/eventbus", './event-bus')
                 }
             }
         }
-        stage('Push Images to Docker Hub') {
+        stage('i211133 Push Images to Docker Hub') {
             steps {
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS_ID) {
