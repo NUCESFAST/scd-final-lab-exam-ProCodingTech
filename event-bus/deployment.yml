@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: event-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: event
+  template:
+    metadata:
+      labels:
+        app: event
+    spec:
+      containers:
+      - name: event
+        image: arehmanse/event:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: NODE_ENV
+          value: "production"
+        - name: PORT
+          value: "3000"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: event-service
+spec:
+  selector:
+    app: event
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  type: ClusterIP
